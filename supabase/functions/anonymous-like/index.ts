@@ -84,7 +84,7 @@ Deno.serve(async (req) => {
       // Insert the like into the database
       await connection
         .queryObject`INSERT INTO public.anon_likes (strategy, ip_addr)
-                                    VALUES (${strategyId}, ${ip})`;
+                          VALUES (${strategyId}, ${ip})`;
 
       // Return the response with the correct content type header
       return new Response("Liked!", { status: 200 });
