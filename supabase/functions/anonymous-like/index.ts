@@ -48,7 +48,7 @@ Deno.serve(async (req) => {
     const outcome = await turnstileResponse.json();
 
     if (!outcome.success) {
-      return new Response("Failed to verify captcha", { status: 403 });
+      return new Response("ERROR_CAPTCHA_FAILED", { status: 403 });
     }
 
     try {
@@ -70,13 +70,13 @@ Deno.serve(async (req) => {
 
       // If the strategy does not exist, return a 404
       if ((strategyResult.rowCount ?? 0) === 0) {
-        return new Response("Strategy not found", { status: 404 });
+        return new Response("ERROR_STRATEGY_NOT_FOUND", { status: 404 });
       }
 
       // If the user has already liked the strategy in the last 24 hours, return a 403
       if ((likeResult.rowCount ?? 0) > 0) {
         return new Response(
-          "You have already liked this strategy in the last 24 hours",
+          "ERROR_ALREADY_LIKED",
           { status: 403 },
         );
       }
@@ -87,7 +87,7 @@ Deno.serve(async (req) => {
                           VALUES (${strategyId}, ${ip})`;
 
       // Return the response with the correct content type header
-      return new Response("Liked!", { status: 200 });
+      return new Response("SUCCESS", { status: 200 });
     } finally {
       // Release the connection back into the pool
       connection.release();
