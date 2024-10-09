@@ -62,9 +62,9 @@ Deno.serve(async (req) => {
           connection
             .queryObject`SELECT 1
                            FROM public.anon_likes
-                           WHERE strategy=${strategyId}
-                                 AND ip_addr=${ip}
-                                 AND created_at > NOW() - INTERVAL '1 day'`,
+                          WHERE strategy=${strategyId}
+                                AND ip_addr=${ip}
+                                AND created_at > NOW() - INTERVAL '1 day'`,
         ],
       );
 
